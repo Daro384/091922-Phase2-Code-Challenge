@@ -1,6 +1,8 @@
 import React from "react";
 import Transaction from "./Transaction";
 
+const API = "http://localhost:8001/transactions"
+
 function TransactionsList({transactions, setTransactions}) {
 
   const handleSort = sortBy => {
@@ -11,9 +13,14 @@ function TransactionsList({transactions, setTransactions}) {
     setTransactions([...sortedTransactions])
   }
 
+  const handleDelete = id => {
+    fetch(`${API}/${id}`, {method:"delete"})
+    setTransactions(transactions.filter(transaction => (transaction.id !== id)))
+  }
+
   const transactionElements = transactions.map(transaction => {
     if (transaction.show) return
-    return <Transaction key={transaction.id} transaction={transaction}/>
+    return <Transaction key={transaction.id} transaction={transaction} handleDelete={handleDelete}/>
   })
 
   return (
