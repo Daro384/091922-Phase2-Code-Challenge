@@ -2,7 +2,6 @@ import React,{useState} from "react";
 
 function Search({transactions, setTransactions}) {
 
-
   const [search, setSearch] = useState("")
 
   const handleSearch = event => {
